@@ -32,12 +32,12 @@ public class ConectaDB {
 
     public Connection getConexao() throws ClassNotFoundException, SQLException {
 
-        String url = "jdbc:mysql://localhost:3306/peidos_online";
+        String url = "jdbc:mysql://localhost:3306/pedidos_online";
         Driver = "com.mysql.jdbc.Driver";
         Class.forName(Driver);
 
         if (conexao == null || conexao.isClosed()) {
-            conexao = DriverManager.getConnection(url, "pedidos", "123456");
+            conexao = DriverManager.getConnection(url, "root", "102@Suporte");
         }
 
         return conexao;

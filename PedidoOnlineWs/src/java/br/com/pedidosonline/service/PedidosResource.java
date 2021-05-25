@@ -41,9 +41,9 @@ public class PedidosResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Pedido> getPedidos() {
-        //TODO return proper representation object
+    public List<Pedido> getPedidos(){        
         List<Pedido> pedidos = new ArrayList<>();
+        
         return pedidos;
     }
 

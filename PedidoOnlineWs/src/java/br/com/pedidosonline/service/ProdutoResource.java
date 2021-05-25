@@ -5,9 +5,14 @@
  */
 package br.com.pedidosonline.service;
 
+import br.com.pedidosonline.dao.ProdutoDAO;
+import br.com.pedidosonline.exception.DataNotFoundException;
 import br.com.pedidosonline.model.Produto;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
@@ -30,6 +35,7 @@ public class ProdutoResource {
 
     @Context
     private UriInfo context;
+    private ProdutoDAO produtoDAO = new ProdutoDAO();
 
     /**
      * Creates a new instance of ProdutoResource
@@ -46,19 +52,28 @@ public class ProdutoResource {
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public List<Produto> getProdutos() {
-        //TODO return proper representation object
-        Produto p = new Produto();
         List<Produto> produtos = new ArrayList<>();
+        try {
+            produtos = produtoDAO.buscarTodos();
+            return produtos;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return produtos;
     }
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     @Path("/{idProduto}")
-    public Produto getProduto(@PathParam("id") Integer id) {
+    public Produto getProduto(@PathParam("idProduto") Integer id) {
         //TODO return proper representation object
         Produto p = new Produto();
-        p.setId(id);
+        try {
+            p = produtoDAO.buscarPorId(id);
+        } catch (SQLException | ClassNotFoundException ex) {
+            
+            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return p;
     }
 
@@ -70,21 +85,38 @@ public class ProdutoResource {
     @POST
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     public Produto postProduto(Produto content) {
-        
-        return content;
+
+        try {
+            produtoDAO.incluir(content);
+            return content;
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
     }
-   
+
     @PUT
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    @Path("/{idProduto}")    
-    public void patchProduto(Produto produto){
-        
+    @Path("/{idProduto}")
+    public void putProduto(@PathParam("idProduto") Integer idProduto, Produto produto) {
+        try {
+            Produto p = produtoDAO.buscarPorId(idProduto);
+            if (p == null){
+                throw new DataNotFoundException("Produto não encontrado com o id: " + idProduto);
+            }
+            
+            produtoDAO.alterar(produto);
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new RuntimeException("Erro ao atualizar produto, Detalhe: " + ex.getMessage(), ex);
+        }
     }
-    
+
     @DELETE
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    @Path("/{idProduto}")    
-    public void deleteProduto(@PathParam("idProduto")Integer idProduto){
-        
+    @Path("/{idProduto}")
+    public void deleteProduto(@PathParam("idProduto") Integer idProduto) {
+
     }
 }
