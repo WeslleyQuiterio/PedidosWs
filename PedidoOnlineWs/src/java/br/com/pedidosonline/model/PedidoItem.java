@@ -12,29 +12,47 @@ public class PedidoItem {
     private Double desconto;
     private BigDecimal total;
     private Integer sequencia;
+    private Produto produto;
 
     public PedidoItem() {
     }
 
-   
-    public Integer getId() {
-        return this.idpedidoitem;
+    public Integer getIdpedidoitem() {
+        return idpedidoitem;
     }
-    public void setId(Integer id) {
-        this.idpedidoitem = id;
+
+    public void setIdpedidoitem(Integer idpedidoitem) {
+        this.idpedidoitem = idpedidoitem;
     }
-    public Integer getIdPedido() {
+
+    public Integer getIdpedido() {
         return idpedido;
     }
-    public void setIdPedido(Integer idpedido) {
+
+    public void setIdpedido(Integer idpedido) {
         this.idpedido = idpedido;
     }
-    public Integer getIdProduto() {
+
+    public Integer getIdproduto() {
         return idproduto;
     }
-    public void setIdProduto(Integer idproduto) {
+
+    public void setIdproduto(Integer idproduto) {
         this.idproduto = idproduto;
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+    
+    
+
+   
+    
     public Double getQtd() {
         return qtd;
     }

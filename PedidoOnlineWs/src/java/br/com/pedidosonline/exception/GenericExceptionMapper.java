@@ -6,6 +6,7 @@
 package br.com.pedidosonline.exception;
 
 import br.com.pedidosonline.model.ErrorMessage;
+import com.google.gson.Gson;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -15,14 +16,16 @@ import javax.ws.rs.ext.Provider;
  * @author Weslley
  */
 @Provider
-public class GenericExceptionMapper implements ExceptionMapper<Throwable>{
+public class GenericExceptionMapper implements ExceptionMapper<Throwable> {
 
     @Override
     public Response toResponse(Throwable e) {
         ErrorMessage errorMessage = new ErrorMessage(e.getMessage(), 500);
+        Gson gson = new Gson();
+        String msg = gson.toJson(errorMessage);
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                .entity(errorMessage)
+                .entity(msg)
                 .build();
     }
-    
+
 }

@@ -27,8 +27,8 @@ public class PedidoItemDAO implements Serializable {
               conexao = ConectaDB.getInstance().getConexao();
               pstm = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 
-              pstm.setInt(1,pedidoitem.getIdPedido());
-              pstm.setInt(2,pedidoitem.getIdProduto());
+              pstm.setInt(1,pedidoitem.getIdpedido());
+              pstm.setInt(2,pedidoitem.getIdproduto());
               pstm.setDouble(3,pedidoitem.getQtd());
               pstm.setDouble(4,pedidoitem.getValorUnitario());
               pstm.setDouble(5,pedidoitem.getDesconto());
@@ -38,7 +38,7 @@ public class PedidoItemDAO implements Serializable {
               update = pstm.executeUpdate();
               rs = pstm.getGeneratedKeys();
               rs.next();
-              pedidoitem.setId(rs.getInt(1));
+              pedidoitem.setIdpedidoitem(rs.getInt(1));
 
 
         }finally {
@@ -57,7 +57,7 @@ public class PedidoItemDAO implements Serializable {
         Connection conexao = null;
         int update = 0;
         PreparedStatement pstm = null;
-        String sql = "UPDATE PEDIDOS_ONLINE.PEDIDO_ITEM SET QTD= ?,VALOR_UNITARIO= ?,DESCONTO= ?,TOTAL= ?,SEQUENCIA= ? "
+        String sql = "UPDATE PEDIDOS_ONLINE.PEDIDO_ITEM SET QTD= ?,VALOR_UNITARIO= ?,DESCONTO= ?,TOTAL= ?,SEQUENCIA= ?, IDPRODUTO = ? "
                     +"WHERE IDPEDIDOITEM = ?;";
         try {
               conexao = ConectaDB.getInstance().getConexao();
@@ -68,7 +68,8 @@ public class PedidoItemDAO implements Serializable {
               pstm.setDouble(3,pedidoitem.getDesconto());
               pstm.setBigDecimal(4,pedidoitem.getTotal());
               pstm.setInt(5,pedidoitem.getSequencia());
-              pstm.setInt(6,pedidoitem.getId());
+              pstm.setInt(6,pedidoitem.getIdproduto());
+              pstm.setInt(7,pedidoitem.getIdpedidoitem());
 
               update = pstm.executeUpdate();
 
@@ -85,9 +86,9 @@ public class PedidoItemDAO implements Serializable {
     public PedidoItem GetObject(ResultSet rs) throws SQLException, ClassNotFoundException {
 
         PedidoItem pedidoitem = new PedidoItem();
-        pedidoitem.setId(rs.getInt("IDPEDIDOITEM"));
-        pedidoitem.setIdPedido(rs.getInt("IDPEDIDO"));
-        pedidoitem.setIdProduto(rs.getInt("IDPRODUTO"));
+        pedidoitem.setIdpedidoitem(rs.getInt("IDPEDIDOITEM"));
+        pedidoitem.setIdpedido(rs.getInt("IDPEDIDO"));
+        pedidoitem.setIdproduto(rs.getInt("IDPRODUTO"));
         pedidoitem.setQtd(rs.getDouble("QTD"));
         pedidoitem.setValorUnitario(rs.getDouble("VALOR_UNITARIO"));
         pedidoitem.setDesconto(rs.getDouble("DESCONTO"));
@@ -109,6 +110,39 @@ public class PedidoItemDAO implements Serializable {
               conexao = ConectaDB.getInstance().getConexao();
               stm = conexao.createStatement();
               rs = stm.executeQuery(sql);
+
+              while(rs.next()){
+                  PedidoItem pedidoitem = GetObject(rs);
+                  itens.add(pedidoitem);
+              }
+
+              return itens;
+
+        }finally {
+            if (stm != null){
+                stm.close();
+            }
+            if (rs != null){
+                rs.close();
+            }
+
+        }
+
+    }
+    
+    public List<PedidoItem> buscarPorPedido(Integer idPedido) throws SQLException, ClassNotFoundException {
+        Connection conexao = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        List<PedidoItem> itens = new ArrayList<>();
+
+        String sql = "SELECT * FROM PEDIDOS_ONLINE.PEDIDO_ITEM WHERE IDPEDIDO = ?";
+
+        try {
+              conexao = ConectaDB.getInstance().getConexao();
+              stm = conexao.prepareStatement(sql);
+              stm.setInt(1, idPedido);
+              rs = stm.executeQuery();
 
               while(rs.next()){
                   PedidoItem pedidoitem = GetObject(rs);
@@ -166,7 +200,7 @@ public class PedidoItemDAO implements Serializable {
               conexao = ConectaDB.getInstance().getConexao();
               pstm = conexao.prepareStatement(sql);
 
-              pstm.setInt(1,pedidoitem.getId());
+              pstm.setInt(1,pedidoitem.getIdpedidoitem());
               pstm.executeUpdate();
 
         }finally {

@@ -37,7 +37,7 @@ public class PedidoDAO implements Serializable {
               update = pstm.executeUpdate();
               rs = pstm.getGeneratedKeys();
               rs.next();
-              pedido.setId(rs.getInt(1));
+              pedido.setIdpedido(rs.getInt(1));
 
 
         }finally {
@@ -68,7 +68,7 @@ public class PedidoDAO implements Serializable {
               pstm.setBigDecimal(4,pedido.getTotal());
               pstm.setInt(5,pedido.getQtdItens());
               pstm.setString(6,pedido.getClienteMesaComanda());
-              pstm.setInt(7,pedido.getId());
+              pstm.setInt(7,pedido.getIdpedido());
 
               update = pstm.executeUpdate();
 
@@ -85,7 +85,7 @@ public class PedidoDAO implements Serializable {
     public Pedido GetObject(ResultSet rs) throws SQLException, ClassNotFoundException {
 
         Pedido pedido = new Pedido();
-        pedido.setId(rs.getInt("IDPEDIDO"));
+        pedido.setIdpedido(rs.getInt("IDPEDIDO"));
         pedido.setDataCriacao(rs.getDate("DATA_CRIACAO") != null ? new Date(rs.getDate("DATA_CRIACAO").getTime()) : null);
         pedido.setSubTotal(rs.getBigDecimal("SUB_TOTAL"));
         pedido.setDesconto(rs.getBigDecimal("DESCONTO"));
@@ -165,7 +165,7 @@ public class PedidoDAO implements Serializable {
               conexao = ConectaDB.getInstance().getConexao();
               pstm = conexao.prepareStatement(sql);
 
-              pstm.setInt(1,pedido.getId());
+              pstm.setInt(1,pedido.getIdpedido());
               pstm.executeUpdate();
 
         }finally {

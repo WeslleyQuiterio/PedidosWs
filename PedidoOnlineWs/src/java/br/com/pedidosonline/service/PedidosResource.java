@@ -5,6 +5,9 @@
  */
 package br.com.pedidosonline.service;
 
+import br.com.pedidosonline.dao.PedidoDAO;
+import br.com.pedidosonline.dao.PedidoItemDAO;
+import br.com.pedidosonline.dao.ProdutoDAO;
 import br.com.pedidosonline.model.Pedido;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,9 @@ public class PedidosResource {
 
     @Context
     private UriInfo context;
+    PedidoDAO pedidoDAO = new PedidoDAO();
+    ProdutoDAO produtoDAO = new ProdutoDAO();
+    PedidoItemDAO pedidoItemDAO = new PedidoItemDAO();
 
     /**
      * Creates a new instance of PedidosResource

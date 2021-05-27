@@ -16,16 +16,16 @@ import javax.ws.rs.ext.Provider;
  * @author Weslley
  */
 @Provider
-public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFoundException> {
+public class EmptyDataExceptionMapper implements ExceptionMapper<EmptyDataException>{
 
     @Override
-    public Response toResponse(DataNotFoundException e) {
-        ErrorMessage errorMessage = new ErrorMessage(e.getMessage(), 404);
-        Gson gson = new Gson();
-        String msg = gson.toJson(errorMessage);
-        return Response.status(Response.Status.NOT_FOUND)
+    public Response toResponse(EmptyDataException e) {
+         ErrorMessage errorMessage = new ErrorMessage(e.getMessage(), 400);
+         Gson gson = new Gson();
+         String msg = gson.toJson(errorMessage);
+        return Response.status(Response.Status.BAD_REQUEST)
                 .entity(msg)
                 .build();
     }
-
+    
 }

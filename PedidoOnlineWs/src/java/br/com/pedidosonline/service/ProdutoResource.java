@@ -7,6 +7,7 @@ package br.com.pedidosonline.service;
 
 import br.com.pedidosonline.dao.ProdutoDAO;
 import br.com.pedidosonline.exception.DataNotFoundException;
+import br.com.pedidosonline.exception.EmptyDataException;
 import br.com.pedidosonline.model.Produto;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,43 +58,56 @@ public class ProdutoResource {
             produtos = produtoDAO.buscarTodos();
             return produtos;
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Erro ao atualizar produtos, Detalhe: " + ex.getMessage(), ex);
         }
-        return produtos;
+
     }
 
     @GET
     @Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     @Path("/{idProduto}")
-    public Produto getProduto(@PathParam("idProduto") Integer id) {
-        //TODO return proper representation object
-        Produto p = new Produto();
-        try {
-            p = produtoDAO.buscarPorId(id);
-        } catch (SQLException | ClassNotFoundException ex) {
+    public Produto getProduto(@PathParam("idProduto") Integer idProduto) {     
+   
+        try { 
             
-            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+            if (idProduto == null || idProduto <= 0) {
+                throw new EmptyDataException("id do produto inválido");
+            }
+
+            Produto p = produtoDAO.buscarPorId(idProduto);
+            
+            if (p == null){
+               throw new DataNotFoundException("Nenhum produto encontrado com o id: " + idProduto);  
+            }
+            
+            return p;
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new RuntimeException("Erro ao buscar produto, Detalhe: " + ex.getMessage(), ex);
         }
-        return p;
+      
     }
 
     /**
      * PUT method for updating or creating an instance of ProdutoResource
      *
-     * @param content representation for the resource
+     * @param produto    
+     * @return 
      */
     @POST
     @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-    public Produto postProduto(Produto content) {
+    public Produto postProduto(Produto produto) {
 
         try {
-            produtoDAO.incluir(content);
-            return content;
+            if (produto != null && (produto.getDescricaoCompleta() == null || produto.getValorUnitario() == null)) {
+                throw new EmptyDataException("Descrição e/ou valor unitários estão vazios, verifique e tente novamente");
+            }
+            produtoDAO.incluir(produto);
+            return produto;
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(ProdutoResource.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Erro ao incluir produto, Detalhe: " + ex.getMessage(), ex);
         }
 
-        return null;
     }
 
     @PUT
@@ -102,21 +116,39 @@ public class ProdutoResource {
     public void putProduto(@PathParam("idProduto") Integer idProduto, Produto produto) {
         try {
             Produto p = produtoDAO.buscarPorId(idProduto);
-            if (p == null){
+            if (p == null) {
                 throw new DataNotFoundException("Produto não encontrado com o id: " + idProduto);
             }
-            
+
+            if (produto != null && (produto.getDescricaoCompleta() == null || produto.getValorUnitario() == null)) {
+                throw new EmptyDataException("Descrição e/ou valor unitários estão vazios, verifique e tente novamente");
+            }
+
             produtoDAO.alterar(produto);
-            
+
         } catch (SQLException | ClassNotFoundException ex) {
             throw new RuntimeException("Erro ao atualizar produto, Detalhe: " + ex.getMessage(), ex);
         }
     }
 
     @DELETE
-    @Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
     @Path("/{idProduto}")
     public void deleteProduto(@PathParam("idProduto") Integer idProduto) {
 
+        try {
+
+            if (idProduto == null || idProduto <= 0) {
+                throw new EmptyDataException("id do produto inválido");
+            }
+
+            Produto p = produtoDAO.buscarPorId(idProduto);
+            if (p == null) {
+                throw new DataNotFoundException("Produto não encontrado com o id: " + idProduto);
+            }
+            produtoDAO.excluir(p);
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            throw new RuntimeException("Erro ao excluir produto, Detalhe: " + ex.getMessage(), ex);
+        }
     }
 }

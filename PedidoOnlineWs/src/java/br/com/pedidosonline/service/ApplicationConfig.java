@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(br.com.pedidosonline.exception.DataNotFoundExceptionMapper.class);
+        resources.add(br.com.pedidosonline.exception.EmptyDataExceptionMapper.class);
         resources.add(br.com.pedidosonline.exception.GenericExceptionMapper.class);
         resources.add(br.com.pedidosonline.service.PedidosResource.class);
         resources.add(br.com.pedidosonline.service.ProdutoResource.class);

@@ -9,10 +9,10 @@ package br.com.pedidosonline.exception;
  *
  * @author Weslley
  */
-public class DataNotFoundException extends RuntimeException {
+public class EmptyDataException extends RuntimeException{
 
-    public DataNotFoundException(String message) {
+    public EmptyDataException(String message) {
         super(message);
     }
-
+    
 }

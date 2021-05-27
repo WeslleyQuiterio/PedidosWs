@@ -5,30 +5,34 @@
  */
 package br.com.pedidosonline.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author Weslley
  */
+@XmlRootElement
 public class ErrorMessage {
     
-    private String errrorMessage;
+    private String errorMessage;
     private int errorCode;
 
-    public ErrorMessage(String errrorMessage, int errorCode) {
-        this.errrorMessage = errrorMessage;
+    public ErrorMessage(String errorMessage, int errorCode) {
+        super();
+        this.errorMessage = errorMessage;
         this.errorCode = errorCode;
     }
 
     public ErrorMessage() {
     }
 
-    public String getErrrorMessage() {
-        return errrorMessage;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setErrrorMessage(String errrorMessage) {
-        this.errrorMessage = errrorMessage;
-    }
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }    
 
     public int getErrorCode() {
         return errorCode;

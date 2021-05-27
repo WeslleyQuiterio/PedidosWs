@@ -2,6 +2,7 @@ package br.com.pedidosonline.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Pedido {
 
@@ -12,6 +13,7 @@ public class Pedido {
     private BigDecimal total;
     private Integer qtdItens;
     private String clienteMesaComanda;
+    List<PedidoItem> itens;
 
     public Pedido() {
     }
@@ -26,14 +28,26 @@ public class Pedido {
         this.clienteMesaComanda = clienteMesaComanda;
     }
 
+    public Integer getIdpedido() {
+        return idpedido;
+    }
+
+    public void setIdpedido(Integer idpedido) {
+        this.idpedido = idpedido;
+    }
+
+    public List<PedidoItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<PedidoItem> itens) {
+        this.itens = itens;
+    }
+
+    
     
 
-    public Integer getId() {
-        return this.idpedido;
-    }
-    public void setId(Integer id) {
-        this.idpedido = id;
-    }
+    
     public Date getDataCriacao() {
         return dataCriacao;
     }
