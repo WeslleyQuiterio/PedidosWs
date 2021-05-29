@@ -41,6 +41,8 @@ Entrega do projeto Final da matéria: Backend
  
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/produtos
 	Exemplo Retorno, content:
+		
+		
 		[
 			{
 			"codBarras":"14632",
@@ -69,6 +71,7 @@ Entrega do projeto Final da matéria: Backend
 	* POST http://{servidor}:{porta}/PedidoOnlineWs/api/produtos
 	deverá ser enviado um body com os dados do produto a ser incluido
 	Exemplo Body Exemplo: 
+		
 		{
 		  "codBarras":"14632",
 		  "descricaoCompleta":"Teste produto novo",
@@ -82,6 +85,7 @@ Entrega do projeto Final da matéria: Backend
 		
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/produtos/{idProduto}
 	Exemplo Retorno, content:
+		
 		{
 		  "codBarras":"14632",
 		  "descricaoCompleta":"Teste produto novo",
@@ -97,6 +101,7 @@ Entrega do projeto Final da matéria: Backend
    * PUT http://{servidor}:{porta}/PedidoOnlineWs/api/produtos/{idProduto}
 	deverá ser enviado um body com os dados do produto a ser alterado
 	Body Exemplo: 
+		
 		{
 		  "codBarras":"14632",
 		  "descricaoCompleta":"Teste produto novo",
@@ -119,6 +124,8 @@ Entrega do projeto Final da matéria: Backend
  
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos
 	Exemplo Retorno, content:
+		
+		
 		[
 			{
 			"clienteMesaComanda":"",
@@ -184,6 +191,7 @@ Entrega do projeto Final da matéria: Backend
 	* POST http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos
 	deverá ser enviado um body com os dados do pedido a ser incluido
 	Body Exemplo: 
+		
 		{
 		  "clienteMesaComanda":"",
 		  "dataCriacao":"2021-05-29T00:00:00-03:00",
@@ -220,6 +228,7 @@ Entrega do projeto Final da matéria: Backend
 		
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos/{idPedido}
 	Exemplo Retorno, content:
+		
 		{
 		  "clienteMesaComanda":"",
 		  "dataCriacao":"2021-05-29T00:00:00-03:00",
@@ -285,6 +294,7 @@ Entrega do projeto Final da matéria: Backend
 	deverá ser enviado um body com os dados do pedido a ser alterado
 	caso queira alterar um item do pedido, madar o idpedidoitem no array de itens
 	Body Exemplo: 
+		
 		{
 		  "clienteMesaComanda":"",
 		  "dataCriacao":"2021-05-29T00:00:00-03:00",
