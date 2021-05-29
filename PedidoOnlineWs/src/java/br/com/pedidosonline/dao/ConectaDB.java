@@ -31,13 +31,16 @@ public class ConectaDB {
     }
 
     public Connection getConexao() throws ClassNotFoundException, SQLException {
-
+        //Altere o usuário e a senha nas variáveis usuarioDB  e senhaDB para se conectar com o mysql instalado, 
+        //ou crie este usuário com as permissões dentro do seu mysql 
+        String usuarioDB = "pedidos";
+        String senhaDB = "123456";
         String url = "jdbc:mysql://localhost:3306/pedidos_online";
         Driver = "com.mysql.jdbc.Driver";
         Class.forName(Driver);
 
         if (conexao == null || conexao.isClosed()) {
-            conexao = DriverManager.getConnection(url, "root", "102@Suporte");
+            conexao = DriverManager.getConnection(url, usuarioDB, senhaDB);
         }
 
         return conexao;
