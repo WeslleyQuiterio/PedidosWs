@@ -40,9 +40,11 @@ Entrega do projeto Final da matéria: Backend
  - produtos
  
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/produtos
-	Exemplo Retorno, content:
+   - Exemplo Retorno, content:
 		
-		
+	
+              
+        
 		[
 			{
 			"codBarras":"14632",
@@ -70,7 +72,7 @@ Entrega do projeto Final da matéria: Backend
 		
 	* POST http://{servidor}:{porta}/PedidoOnlineWs/api/produtos
 	deverá ser enviado um body com os dados do produto a ser incluido
-	Exemplo Body Exemplo: 
+      - Exemplo Body Exemplo: 
 		
 		{
 		  "codBarras":"14632",
@@ -84,7 +86,7 @@ Entrega do projeto Final da matéria: Backend
 		
 		
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/produtos/{idProduto}
-	Exemplo Retorno, content:
+   - Exemplo Retorno, content:
 		
 		{
 		  "codBarras":"14632",
@@ -100,7 +102,7 @@ Entrega do projeto Final da matéria: Backend
 		
    * PUT http://{servidor}:{porta}/PedidoOnlineWs/api/produtos/{idProduto}
 	deverá ser enviado um body com os dados do produto a ser alterado
-	Body Exemplo: 
+   - Body Exemplo: 
 		
 		{
 		  "codBarras":"14632",
@@ -123,7 +125,7 @@ Entrega do projeto Final da matéria: Backend
  - pedidos
  
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos
-	Exemplo Retorno, content:
+   - Exemplo Retorno, content:
 		
 		
 		[
@@ -227,7 +229,7 @@ Entrega do projeto Final da matéria: Backend
 		
 		
    * GET http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos/{idPedido}
-	Exemplo Retorno, content:
+   - Exemplo Retorno, content:
 		
 		{
 		  "clienteMesaComanda":"",
@@ -293,7 +295,7 @@ Entrega do projeto Final da matéria: Backend
    * PUT http://{servidor}:{porta}/PedidoOnlineWs/api/pedidos/{idPedido}
 	deverá ser enviado um body com os dados do pedido a ser alterado
 	caso queira alterar um item do pedido, madar o idpedidoitem no array de itens
-	Body Exemplo: 
+   - Body Exemplo: 
 		
 		{
 		  "clienteMesaComanda":"",
