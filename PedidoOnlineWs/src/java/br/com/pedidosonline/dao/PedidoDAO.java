@@ -134,15 +134,18 @@ public class PedidoDAO implements Serializable {
         ResultSet rs = null;
         String sql = "SELECT * FROM PEDIDOS_ONLINE.PEDIDO WHERE " 
          + "IDPEDIDO = ?;";
+         Pedido pedido = null;
         try {
               conexao = ConectaDB.getInstance().getConexao();
               pstm = conexao.prepareStatement(sql);
 
               pstm.setInt(1,IdPedido);
               rs = pstm.executeQuery();
-              rs.next();
+              while(rs.next()){
+                 pedido = GetObject(rs);
+              }
 
-              Pedido pedido = GetObject(rs);
+              
 
               return pedido;
 

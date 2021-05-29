@@ -11,6 +11,7 @@
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/dao/ConectaDB.java</file>
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/exception/EmptyDataException.java</file>
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/exception/GenericExceptionMapper.java</file>
+            <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/model/Produto.java</file>
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/model/ErrorMessage.java</file>
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/service/ProdutoResource.java</file>
             <file>file:/D:/Projetos/GitHub/PedidosWs/PedidoOnlineWs/src/java/br/com/pedidosonline/exception/DataNotFoundException.java</file>

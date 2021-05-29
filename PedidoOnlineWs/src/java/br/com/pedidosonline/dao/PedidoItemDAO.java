@@ -211,5 +211,24 @@ public class PedidoItemDAO implements Serializable {
         }
 
     }
+    public void excluirPorPedido  (Integer idPedido) throws SQLException, ClassNotFoundException {
+        Connection conexao = null;
+        PreparedStatement pstm = null;
+        String sql = "DELETE FROM PEDIDOS_ONLINE.PEDIDO_ITEM WHERE IDPEDIDO = ?;";
+        try {
+              conexao = ConectaDB.getInstance().getConexao();
+              pstm = conexao.prepareStatement(sql);
+
+              pstm.setInt(1, idPedido);
+              pstm.executeUpdate();
+
+        }finally {
+            if (pstm != null){
+                pstm.close();
+            }
+
+        }
+
+    }
 
 }

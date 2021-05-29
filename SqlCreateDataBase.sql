@@ -26,9 +26,14 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `qtd_itens` int(11) NOT NULL DEFAULT '0' COMMENT 'quantidade de itens que o pedido possui',
   `cliente_mesa_comanda` varchar(14) NOT NULL DEFAULT '' COMMENT 'cpf / cnpj / mesa ou comanda onde o pedido foi realizado',
   PRIMARY KEY (`idPedido`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela pedidos_online.pedido: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
+INSERT IGNORE INTO `pedido` (`idPedido`, `data_criacao`, `sub_total`, `desconto`, `total`, `qtd_itens`, `cliente_mesa_comanda`) VALUES
+	(3, '2021-05-29 00:00:00', 7.00, 1.00, 6.00, 2, '');
+/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela pedidos_online.pedido_item
 CREATE TABLE IF NOT EXISTS `pedido_item` (
   `idPedidoItem` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do Item pedido',
@@ -44,9 +49,15 @@ CREATE TABLE IF NOT EXISTS `pedido_item` (
   KEY `fk_produto_idProduto` (`idProduto`),
   CONSTRAINT `fk_pedido_idPedido` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_idProduto` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela pedidos_online.pedido_item: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `pedido_item` DISABLE KEYS */;
+INSERT IGNORE INTO `pedido_item` (`idPedidoItem`, `idPedido`, `idProduto`, `qtd`, `valor_unitario`, `desconto`, `total`, `sequencia`) VALUES
+	(3, 3, 2, 3.00, 1.00, 0.50, 3.00, 1),
+	(4, 3, 3, 4.00, 1.00, 0.50, 4.00, 1);
+/*!40000 ALTER TABLE `pedido_item` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela pedidos_online.produto
 CREATE TABLE IF NOT EXISTS `produto` (
   `idProduto` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id do produto',
@@ -57,9 +68,15 @@ CREATE TABLE IF NOT EXISTS `produto` (
   `valor_unitario` double NOT NULL DEFAULT '0' COMMENT 'valor unitário do produto',
   `cod_barras` varchar(20) NOT NULL DEFAULT '' COMMENT 'Codigo de barras para leitura',
   PRIMARY KEY (`idProduto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela pedidos_online.produto: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT IGNORE INTO `produto` (`idProduto`, `descricao_completa`, `descricao_resumida`, `unidade`, `fator`, `valor_unitario`, `cod_barras`) VALUES
+	(2, 'Teste produto novo', 'tst produto', 'und', 1, 175.95, '14632'),
+	(3, 'Entrega trabalho final', 'Ent Trb final', 'und', 12, 1200, '54321');
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
